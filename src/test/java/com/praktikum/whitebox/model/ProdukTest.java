@@ -173,8 +173,9 @@ public class ProdukTest {
     @Test
     @DisplayName("Mengubah kode")
     void testSetKode() {
-    produk.setKode("P02");
+        Produk p1 = new Produk();
+        p1.setKode("P02");
 
-    assertEquals("P02", produk.getKode());
+        assertEquals("P02", produk.getKode());
     }
 }
