@@ -52,7 +52,7 @@ public class ProdukTest {
     //Anotasi untuk menjalankan tes dengan berbagai parameter
     @ParameterizedTest
     @DisplayName("Test kurangi stok dengan berbagai nilai")
-//Anotasi untuk menyediakan data parameterized test dari sumber CSV
+    //Anotasi untuk menyediakan data parameterized test dari sumber CSV
     @CsvSource({
             "5, 5", // kurangi 5 dari 10, sisa 5
             "3, 7", // kurangi 3 dari 10, sisa 7
@@ -135,5 +135,31 @@ public class ProdukTest {
         assertEquals(produk1, produk2); // kode sama
         assertNotEquals(produk1, produk3); // kode berbeda
         assertEquals(produk1.hashCode(), produk2.hashCode());
+    }
+
+    @Test
+    @DisplayName("Test getter dan setter")
+    void testGetterSetter() {
+        produk.setNama("PC Rakitan");
+        produk.setKategori("Komputer");
+        produk.setHarga(10000000);
+        produk.setStok(8);
+        produk.setStokMinimum(2);
+
+        assertEquals("PC Rakitan", produk.getNama());
+        assertEquals("Komputer", produk.getKategori());
+        assertEquals(10000000, produk.getHarga());
+        assertEquals(8, produk.getStok());
+        assertEquals(2, produk.getStokMinimum());
+    }
+
+    // TEST toString (jika diimplementasikan)
+    @Test
+    @DisplayName("Test toString menampilkan informasi produk")
+    void testToString() {
+        String result = produk.toString();
+        assertTrue(result.contains("PROD001"));
+        assertTrue(result.contains("Laptop Gaming"));
+        assertTrue(result.contains("Elektronik"));
     }
 }
