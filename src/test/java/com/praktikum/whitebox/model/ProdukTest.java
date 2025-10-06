@@ -176,6 +176,6 @@ public class ProdukTest {
         Produk p1 = new Produk();
         p1.setKode("P02");
 
-        assertEquals("P02", produk.getKode());
+        assertEquals("P02", p1.getKode());
     }
 }
