@@ -162,4 +162,19 @@ public class ProdukTest {
         assertTrue(result.contains("Laptop Gaming"));
         assertTrue(result.contains("Elektronik"));
     }
+
+    @Test
+    @DisplayName("Test Buat Produk")
+    void testGetKode() {
+        Produk p = new Produk("P01", "Sabun", "Kebutuhan", 5000, 10, 2);
+        assertEquals("P01", p.getKode());
+    }
+
+    @Test
+    @DisplayName("Mengubah kode")
+    void testSetKode() {
+    produk.setKode("P02");
+
+    assertEquals("P02", produk.getKode());
+    }
 }
