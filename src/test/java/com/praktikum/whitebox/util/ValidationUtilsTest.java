@@ -86,7 +86,13 @@ class ValidationUtilsTest {
     @Test
     @DisplayName("Produk valid")
     void testIsValidProduk_Valid() {
-        Produk produk = new Produk("P01", "Laptop", "Elektronik", 10000000, 10, 2);
+        Produk produk = new Produk(
+                "P01",
+                "Laptop",
+                "Elektronik",
+                10000000,
+                10,
+                2);
         assertTrue(ValidationUtils.isValidProduk(produk));
     }
 
@@ -99,14 +105,26 @@ class ValidationUtilsTest {
     @Test
     @DisplayName("Produk dengan kode tidak valid")
     void testIsValidProduk_KodeInvalid() {
-        Produk produk = new Produk("@@@", "Laptop", "Elektronik", 10000000, 10, 2);
+        Produk produk = new Produk(
+                "@@@",
+                "Laptop",
+                "Elektronik",
+                10000000,
+                10,
+                2);
         assertFalse(ValidationUtils.isValidProduk(produk));
     }
 
     @Test
     @DisplayName("Produk dengan stok negatif")
     void testIsValidProduk_StokNegatif() {
-        Produk produk = new Produk("P01", "Laptop", "Elektronik", 10000000, -1, 2);
+        Produk produk = new Produk(
+                "P01",
+                "Laptop",
+                "Elektronik",
+                10000000,
+                -1,
+                2);
         assertFalse(ValidationUtils.isValidProduk(produk));
     }
 

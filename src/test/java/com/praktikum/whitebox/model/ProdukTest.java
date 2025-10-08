@@ -166,7 +166,13 @@ public class ProdukTest {
     @Test
     @DisplayName("Test Buat Produk")
     void testGetKode() {
-        Produk p = new Produk("P01", "Sabun", "Kebutuhan", 5000, 10, 2);
+        Produk p = new Produk(
+                "P01",
+                "Sabun",
+                "Kebutuhan",
+                5000,
+                10,
+                2);
         assertEquals("P01", p.getKode());
     }
 

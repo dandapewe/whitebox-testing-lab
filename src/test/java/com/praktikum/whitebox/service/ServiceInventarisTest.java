@@ -190,7 +190,13 @@ public class ServiceInventarisTest {
     @Test
     @DisplayName("Hapus produk berhasil - stok 0")
     void testHapusProdukBerhasil() {
-        Produk produkHabis = new Produk("P02","Keyboard","Elektronik",300000,0,1);
+        Produk produkHabis = new Produk(
+                "P02",
+                "Keyboard",
+                "Elektronik",
+                300000,
+                0,
+                1);
         when(mockRepositoryProduk.cariByKode("P02")).thenReturn(Optional.of(produkHabis));
         when(mockRepositoryProduk.hapus("P02")).thenReturn(true);
         assertTrue(serviceInventaris.hapusProduk("P02"));
@@ -211,6 +217,33 @@ public class ServiceInventarisTest {
         assertTrue(hasil.isPresent());
         assertEquals("PROD001", hasil.get().getKode());
     }
+
+    @Test
+    @DisplayName("Cari produk berdasarkan nama berhasil")
+    void testCariProdukByNamaBerhasil() {
+        List<Produk> produkList = List.of(new Produk("P01", "Keyboard", "Elektronik", 300000, 10, 2));
+        when(mockRepositoryProduk.cariByNama("Keyboard")).thenReturn(produkList);
+
+        List<Produk> hasil = serviceInventaris.cariProdukByNama("Keyboard");
+
+        assertEquals(1, hasil.size());
+        assertEquals("P01", hasil.get(0).getKode());
+        verify(mockRepositoryProduk).cariByNama("Keyboard");
+    }
+
+    @Test
+    @DisplayName("Cari produk berdasarkan kategori berhasil")
+    void testCariProdukByKategoriBerhasil() {
+        List<Produk> produkList = List.of(new Produk("P02", "Mouse", "Elektronik", 200000, 5, 3));
+        when(mockRepositoryProduk.cariByKategori("Elektronik")).thenReturn(produkList);
+
+        List<Produk> hasil = serviceInventaris.cariProdukByKategori("Elektronik");
+
+        assertEquals(1, hasil.size());
+        assertEquals("Mouse", hasil.get(0).getNama());
+        verify(mockRepositoryProduk).cariByKategori("Elektronik");
+    }
+
 
     @Test
     @DisplayName("Update stok gagal - stok negatif")
@@ -288,31 +321,6 @@ public class ServiceInventarisTest {
         assertEquals(5, serviceInventaris.hitungTotalStok());
     }
 
-    @Test
-    @DisplayName("Cari produk berdasarkan nama berhasil")
-    void testCariProdukByNamaBerhasil() {
-        List<Produk> produkList = List.of(new Produk("P01", "Keyboard", "Elektronik", 300000, 10, 2));
-        when(mockRepositoryProduk.cariByNama("Keyboard")).thenReturn(produkList);
-
-        List<Produk> hasil = serviceInventaris.cariProdukByNama("Keyboard");
-
-        assertEquals(1, hasil.size());
-        assertEquals("P01", hasil.get(0).getKode());
-        verify(mockRepositoryProduk).cariByNama("Keyboard");
-    }
-
-    @Test
-    @DisplayName("Cari produk berdasarkan kategori berhasil")
-    void testCariProdukByKategoriBerhasil() {
-        List<Produk> produkList = List.of(new Produk("P02", "Mouse", "Elektronik", 200000, 5, 3));
-        when(mockRepositoryProduk.cariByKategori("Elektronik")).thenReturn(produkList);
-
-        List<Produk> hasil = serviceInventaris.cariProdukByKategori("Elektronik");
-
-        assertEquals(1, hasil.size());
-        assertEquals("Mouse", hasil.get(0).getNama());
-        verify(mockRepositoryProduk).cariByKategori("Elektronik");
-    }
 
     @Test
     @DisplayName("Keluar stok gagal - kode produk tidak valid")
@@ -339,7 +347,13 @@ public class ServiceInventarisTest {
     @Test
     @DisplayName("Keluar stok gagal - produk tidak aktif")
     void testKeluarStokProdukTidakAktif() {
-        Produk produk = new Produk("P01", "Keyboard", "Elektronik", 300000, 10, 5);
+        Produk produk = new Produk(
+                "P01",
+                "Keyboard",
+                "Elektronik",
+                300000,
+                10,
+                5);
         produk.setAktif(false);
         when(mockRepositoryProduk.cariByKode("P01")).thenReturn(Optional.of(produk));
 
@@ -351,7 +365,13 @@ public class ServiceInventarisTest {
     @Test
     @DisplayName("Keluar stok gagal - stok tidak mencukupi")
     void testKeluarStokStokTidakCukup() {
-        Produk produk = new Produk("P01", "Keyboard", "Elektronik", 300000, 3, 5);
+        Produk produk = new Produk(
+                "P01",
+                "Keyboard",
+                "Elektronik",
+                300000,
+                3,
+                5);
         when(mockRepositoryProduk.cariByKode("P01")).thenReturn(Optional.of(produk));
 
         boolean hasil = serviceInventaris.keluarStok("P01", 5);
